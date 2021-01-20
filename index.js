@@ -88,6 +88,15 @@ function Airplane(name) {
     this.tank = 0;
     this.odometer = 0;
   }
+
+  Car.prototype.fill = function(gallons){
+    this.tank += gallons;
+  }
+
+  Car.prototype.drive = function(distance){
+    this.odometer += distance;
+    this.tank = (this.tank-( (distance / (this.milesPerGallon*this.tank) ) * 10  ) ) ;   // full tank minus the gallons used.
+  }
   
   
   /*
