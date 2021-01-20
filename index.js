@@ -42,14 +42,14 @@ function Airplane(name) {
  function Person(name,age) {
    this.name = name;
    this.age = age;
-    this.Stomach = [];
+    this.stomach = [];
   }
 
   Person.prototype.eat = function(food){
 
     if(this.Stomach.length < 10)
     {
-      this.Stomach.push(food);
+      this.stomach.push(food);
     }
     // if equal or greater than 10, do nothing.
 
@@ -58,7 +58,7 @@ function Airplane(name) {
   Person.prototype.poop = function(){
        for(let food in this.Stomach)
        {
-         this.Stomach.pop();
+         this.stomach.pop();
        }
   }
 
@@ -96,6 +96,10 @@ function Airplane(name) {
   Car.prototype.drive = function(distance){
     this.odometer += distance;
     this.tank = (this.tank-( (distance / (this.milesPerGallon*this.tank) ) * 10  ) ) ;   // full tank minus the gallons used.
+    if(tank <= 0)
+    {
+      return "I ran out of fuel at " + `${this.odometer} miles!`;
+    }
   }
   
   
@@ -106,18 +110,23 @@ function Airplane(name) {
       - Besides the methods on Person.prototype, babies have the ability to `.play()`:
           + Should return a string "Playing with x", x being the favorite toy.
   */
- function Baby() {
-   
+ function Baby(name,age,favoriteToy) {
+   Person.call(this,name,age);
+   this.favoriteToy = favoriteToy;
+   this.play = function(){
+     return `Playing with ${this.favoriteToy}`;
+   }
   }
- 
+   
+  Baby.prototype = Object.create(Person.prototype);
   
   /* 
     TASK 4
     In your own words explain the four principles for the "this" keyword below:
-    1. 
-    2. 
-    3. 
-    4. 
+    1. When "this" is not present within an object, then "this" is bound to the global object of Window.
+    2. Implicit binding indicates that a function call to the right of the dot operator is a member function of the object on the left of the dot operator.
+    3. New binding indicates that a specific object is being created dynamically from memory allocated from the heap.
+    4. Explicit binding refers to explicitly stating what "this" is referencing by calling .call or .apply.
   */
   
   
