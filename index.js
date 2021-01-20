@@ -39,14 +39,33 @@ function Airplane(name) {
           + It should return a string with `name` and `age`. Example: "Mary, 50"
   */
   
- function Person() {
-    
+ function Person(name,age) {
+   this.name = name;
+   this.age = age;
+    this.stomach = [];
   }
- 
- 
 
-  
-  
+  Person.prototype.eat = function(food){
+
+    if(this.Stomach.length < 10)
+    {
+      this.stomach.push(food);
+    }
+    // if equal or greater than 10, do nothing.
+
+  }
+
+  Person.prototype.poop = function(){
+       for(let food in this.Stomach)
+       {
+         this.stomach.pop();
+       }
+  }
+
+  Person.prototype.toString = function(){
+    return `${this.name}, ` + `${this.age}`;
+
+  }  
   
   
   /*
@@ -63,8 +82,24 @@ function Airplane(name) {
           + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
   */
   
- function Car() {
-    
+ function Car(model,milesPerGallon) {
+    this.model = model;
+    this.milesPerGallon = milesPerGallon;
+    this.tank = 0;
+    this.odometer = 0;
+  }
+
+  Car.prototype.fill = function(gallons){
+    this.tank += gallons;
+  }
+
+  Car.prototype.drive = function(distance){
+    this.odometer += distance;
+    this.tank = (this.tank-( (distance / (this.milesPerGallon*this.tank) ) * 10  ) ) ;   // full tank minus the gallons used.
+    if(tank <= 0)
+    {
+      return "I ran out of fuel at " + `${this.odometer} miles!`;
+    }
   }
   
   
@@ -75,18 +110,23 @@ function Airplane(name) {
       - Besides the methods on Person.prototype, babies have the ability to `.play()`:
           + Should return a string "Playing with x", x being the favorite toy.
   */
- function Baby() {
-   
+ function Baby(name,age,favoriteToy) {
+   Person.call(this,name,age);
+   this.favoriteToy = favoriteToy;
+   this.play = function(){
+     return `Playing with ${this.favoriteToy}`;
+   }
   }
- 
+   
+  Baby.prototype = Object.create(Person.prototype);
   
   /* 
     TASK 4
     In your own words explain the four principles for the "this" keyword below:
-    1. 
-    2. 
-    3. 
-    4. 
+    1. When "this" is not present within an object, then "this" is bound to the global object of Window.
+    2. Implicit binding indicates that a function call to the right of the dot operator is a member function of the object on the left of the dot operator.
+    3. New binding indicates that a specific object is being created dynamically from memory allocated from the heap.
+    4. Explicit binding refers to explicitly stating what "this" is referencing by calling .call or .apply.
   */
   
   
